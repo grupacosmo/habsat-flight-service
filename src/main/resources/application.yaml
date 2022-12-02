@@ -1,8 +1,12 @@
 spring:
+  application:
+    name: 'flight-service'
+  config:
+    import: configserver:http://config-server:8061
   datasource:
-    password: 'habsat'
-    username: 'habsat'
-    url: 'jdbc:postgresql://146.59.17.124:5432/db'
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: ${POSTGRES_DSN}
   jpa:
     hibernate:
       ddl-auto: update
@@ -10,6 +14,10 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 server:
+  port: 8003
   error:
     include-message: always
-  port: 2137
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVICE_URL}
