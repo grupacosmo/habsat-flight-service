@@ -11,8 +11,8 @@ public interface DataService {
     List<FlightData> findAll();
     void deleteAll();
     void saveAll(List<FlightData> list);
-    void changeData(FlightData newFlightData, Long id) throws NoDataException;
-    FlightData findById(Long id) throws NoDataException;
-    void deleteById(Long id) throws NoDataException;
+    void changeData(FlightData newFlightData, String id) throws NoDataException;
+    FlightData findById(String id) throws NoDataException;
+    void deleteById(String id) throws NoDataException;
     void deleteTestData();
 }

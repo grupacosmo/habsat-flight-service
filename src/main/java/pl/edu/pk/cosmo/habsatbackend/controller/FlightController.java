@@ -39,7 +39,7 @@ public class FlightController {
     }
 
     @GetMapping("{id}/flightData")
-    public List<FlightData> getFlightDataById(@PathVariable Integer id) {
+    public List<FlightData> getFlightDataById(@PathVariable String id) {
         try {
             return flightService.getFlightDataListById(id);
         } catch (NoFlightException e) {

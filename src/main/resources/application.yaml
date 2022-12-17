@@ -1,18 +1,15 @@
 spring:
   application:
     name: 'flight-service'
-  datasource:
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
-    url: ${POSTGRES_DSN}
-  jpa:
-    hibernate:
-      ddl-auto: update
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      database: ${MONGO_DB}
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 server:
-  port: 8003
   error:
     include-message: always
 eureka:

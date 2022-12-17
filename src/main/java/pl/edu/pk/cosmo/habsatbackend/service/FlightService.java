@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface FlightService {
     FlightResponse getFlightByDate(Date date) throws NoFlightException;
-    List<FlightData> getFlightDataListById(Integer id) throws NoFlightException;
+    List<FlightData> getFlightDataListById(String id) throws NoFlightException;
     void createNewFlight(NewFlightRequest newFlightRequest) throws FlightAlreadyExistsException;
     FlightResponse getFlightByStage(FlightStage flightStage);
     FlightResponse getNewestFlight();

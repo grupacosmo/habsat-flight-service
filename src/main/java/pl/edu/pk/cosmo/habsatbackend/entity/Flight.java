@@ -4,23 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import pl.edu.pk.cosmo.habsatbackend.entity.assets.FlightStage;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "flight")
+@Document("flight")
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Flight {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flight_id")
-    private Integer flightId;
+    @MongoId
+    @Field("_id")
+    private String flightId;
 
     private Date date;
 
@@ -28,9 +29,8 @@ public class Flight {
 
     private String title;
 
-    @Enumerated
     private FlightStage flightStage;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flight_id")
+    @DBRef
     private List<FlightData> flightDataList;
 }

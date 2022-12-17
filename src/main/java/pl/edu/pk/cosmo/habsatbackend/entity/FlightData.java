@@ -1,44 +1,46 @@
 package pl.edu.pk.cosmo.habsatbackend.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name="data_test")
-@lombok.Data
+@Document("data_test")
+@Data
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class FlightData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @MongoId
+    @Field("_id")
+    private String id;
 
-    @Column(nullable = false)
+    @NotNull()
     private Double speed;
 
-    @Column(nullable = false)
+    @NotNull()
     private Double altitude;
 
-    @Column(nullable = false)
+    @NotNull()
     private Double longitude;
 
-    @Column(nullable = false)
+    @NotNull()
     private Double latitude;
 
-    @Column(nullable = false)
+    @NotNull()
     private Double temperature;
 
-    @Column(nullable = false)
+    @NotNull()
     private LocalDateTime time;
 
-    @Column(nullable = false)
+    @NotNull()
     private Double rssi;
 
-    @Column(nullable = true)
-    private Integer flight_id;
+    private String flightId;
 }

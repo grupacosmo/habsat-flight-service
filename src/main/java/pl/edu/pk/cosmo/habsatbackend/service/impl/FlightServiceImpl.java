@@ -34,7 +34,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<FlightData> getFlightDataListById(Integer id) throws NoFlightException {
+    public List<FlightData> getFlightDataListById(String id) throws NoFlightException {
         if(!flightRepository.existsById(id)) {
             throw new NoFlightException("There is no filght with id: " + id);
         }

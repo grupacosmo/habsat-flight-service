@@ -51,7 +51,7 @@ public class DataConverter {
                     .setTemperature(Double.valueOf(mainData.get(4)))
                     .setRssi(Double.valueOf(rssi))
                     .setTime(LocalDateTime.now())
-                    .setFlight_id(1);
+                    .setFlightId("1");
 
     }
 }

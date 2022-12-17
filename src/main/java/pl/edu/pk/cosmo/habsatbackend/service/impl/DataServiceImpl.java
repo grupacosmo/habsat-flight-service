@@ -1,17 +1,14 @@
 package pl.edu.pk.cosmo.habsatbackend.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pk.cosmo.habsatbackend.entity.FlightData;
 import pl.edu.pk.cosmo.habsatbackend.exception.NoDataException;
 import pl.edu.pk.cosmo.habsatbackend.repository.DataRepository;
 import pl.edu.pk.cosmo.habsatbackend.service.DataService;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -19,9 +16,8 @@ import java.util.List;
 public class DataServiceImpl implements DataService {
     private final DataRepository dataRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
-    private final JdbcTemplate jdbcTemplate;
 
-    private final Integer FLIGHTID_TEST_LOCATOR = 99;
+    private final String FLIGHTID_TEST_LOCATOR = "99";
 
     @Override
     public void save(final FlightData flightData) {
@@ -31,15 +27,19 @@ public class DataServiceImpl implements DataService {
     @Override
     @Transactional
     public void sendFrame(final FlightData flightData) {
-        jdbcTemplate.update("INSERT INTO data_test(SPEED, ALTITUDE, LONGITUDE, LATITUDE,TEMPERATURE, TIME, RSSI, FLIGHT_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                flightData.getSpeed(),
-                flightData.getAltitude(),
-                flightData.getLongitude(),
-                flightData.getLatitude(),
-                flightData.getTemperature(),
-                flightData.getTime(),
-                flightData.getRssi(),
-                flightData.getFlight_id());
+        FlightData data = new FlightData();
+
+        data.setSpeed(flightData.getSpeed());
+        data.setAltitude(flightData.getAltitude());
+        data.setLongitude(flightData.getLongitude());
+        data.setLatitude(flightData.getLatitude());
+        data.setTemperature(flightData.getTemperature());
+        data.setTime(flightData.getTime());
+        data.setRssi(flightData.getRssi());
+        data.setFlightId(flightData.getFlightId());
+
+        dataRepository.save(data);
+
         simpMessagingTemplate.convertAndSend("/data/ws", flightData);
     }
 
@@ -50,7 +50,6 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void deleteAll() {
-        jdbcTemplate.execute("ALTER TABLE DATA_TEST ALTER COLUMN ID RESTART WITH 1");
         dataRepository.deleteAll();
     }
 
@@ -60,7 +59,7 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public void changeData(FlightData newFlightData, Long id) throws NoDataException {
+    public void changeData(FlightData newFlightData, String id) throws NoDataException {
 
         FlightData flightData = dataRepository.findById(id).map((data) -> {
             return data.setTemperature(newFlightData.getTemperature() != null ? newFlightData.getTemperature() : data.getTemperature())
@@ -77,13 +76,13 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public FlightData findById(Long id) throws NoDataException {
+    public FlightData findById(String id) throws NoDataException {
         return dataRepository.findById(id)
                 .orElseThrow(() -> new NoDataException("There is no data with given id: " + id));
     }
 
     @Override
-    public void deleteById(Long id) throws NoDataException {
+    public void deleteById(String id) throws NoDataException {
         if(!dataRepository.existsById(id))
             throw new NoDataException("There is no data with given id: " + id);
 
@@ -92,6 +91,6 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void deleteTestData() {
-        dataRepository.deleteAllByFlight_id(FLIGHTID_TEST_LOCATOR);
+        dataRepository.deleteAllByFlightId(FLIGHTID_TEST_LOCATOR);
     }
 }
