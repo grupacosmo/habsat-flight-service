@@ -15,54 +15,82 @@
     <description>flight-service</description>
     <properties>
         <java.version>11</java.version>
+        <spring-boot-starter.version>2.7.5</spring-boot-starter.version>							
+		<spring-boot-starter-web.version>2.7.5</spring-boot-starter-web.version>
+		<spring-boot-starter-test.version>2.7.5</spring-boot-starter-test.version>
+		<spring-boot-starter-websocket.version>2.7.5</spring-boot-starter-websocket.version>
+        <spring-boot-starter-data-rest.version>2.7.5</spring-boot-starter-data-rest.version>
+        <spring-boot-starter-actuator.version>2.7.5</spring-boot-starter-actuator.version>
+        <spring-boot-starter-data-mongodb.version>3.0.0</spring-boot-starter-data-mongodb.version>
+        <spring-boot-maven-plugin.version>2.7.5</spring-boot-maven-plugin.version>
+        <spring-cloud-starter-netflix-eureka-client.version>3.1.4</spring-cloud-starter-netflix-eureka-client.version>
+		<spring-integration-mqtt.version>5.5.10</spring-integration-mqtt.version>
+		<lombok.version>1.18.24</lombok.version>
+        <springdoc-openapi-ui.version>1.6.12</springdoc-openapi-ui.version>
+        <go-offline-maven-plugin.version>1.2.8</go-offline-maven-plugin.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.12</version>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>${spring-boot-starter-websocket.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
+            <version>${spring-boot-starter-data-rest.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring-boot-starter-actuator.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+            <version>${lombok.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter-test.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-mqtt</artifactId>
-            <version>5.5.10</version>
+            <version>${spring-integration-mqtt.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>3.1.4</version>
+            <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
-            <version>3.0.0</version>
+            <version>${spring-boot-starter-data-mongodb.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${validation-api.version}</version>
         </dependency>
     </dependencies>
 
@@ -71,6 +99,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -80,6 +109,12 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+				<groupId>de.qaware.maven</groupId>
+				<artifactId>go-offline-maven-plugin</artifactId>
+				<version>${go-offline-maven-plugin.version}</version>
+			</plugin>
         </plugins>
     </build>
 
