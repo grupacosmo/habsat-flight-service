@@ -15,7 +15,7 @@ jobs:
     needs: [tests]
     uses: grupacosmo/habsat-starter/.github/workflows/build.yaml@master
     with:
-      DOCKER_HUB_REPOSITORY: cosmopk/habsat-post-service
+      DOCKER_HUB_REPOSITORY: cosmopk/habsat-flight-service
       DOCKER_HUB_TAGS: master
     secrets: inherit
 
